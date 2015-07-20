@@ -13,8 +13,8 @@ readonly OUTPUT_DIR=$(readlink -f $1)
 shift
 
 # Links within the container
-CONTAINER_SRC_DIR=/input
-CONTAINER_DST_DIR=/output
+readonly CONTAINER_SRC_DIR=/input
+readonly CONTAINER_DST_DIR=/output
 
 
 # ideally, the input directory would be mounted read only, but currently
@@ -26,4 +26,5 @@ docker run \
     --rm \
     antismash/standalone \
     ${INPUT_FILE} \
+    $(id -u) $(id -g) \
     $@
