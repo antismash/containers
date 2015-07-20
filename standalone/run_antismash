@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# handle input file
+readonly INPUT_FILE=$(basename $1)
+readonly INPUT_DIR=$(dirname $(readlink -f $1))
+shift
+
+# handle output file
+readonly OUTPUT_DIR=$(readlink -f $1)
+shift
+
+# Links within the container
+CONTAINER_SRC_DIR=/input
+CONTAINER_DST_DIR=/output
+
+
+# ideally, the input directory would be mounted read only, but currently
+# antiSMASH doesn't support parsing from a read only file
+docker run \
+    --volume ${INPUT_DIR}:${CONTAINER_SRC_DIR}:rw \
+    --volume ${OUTPUT_DIR}:${CONTAINER_DST_DIR}:rw \
+    --detach=false \
+    --rm \
+    antismash/standalone \
+    ${INPUT_FILE} \
+    $@
