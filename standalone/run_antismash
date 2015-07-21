@@ -24,7 +24,7 @@ docker run \
     --volume ${OUTPUT_DIR}:${CONTAINER_DST_DIR}:rw \
     --detach=false \
     --rm \
+    --user=$(id -u):$(id -g) \
     antismash/standalone \
     ${INPUT_FILE} \
-    $(id -u) $(id -g) \
     $@

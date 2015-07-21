@@ -5,13 +5,4 @@ set -o nounset
 readonly INFILE=$1
 shift
 
-readonly USER_ID=$1
-shift
-
-readonly GROUP_ID=$1
-shift
-
-addgroup --gid $GROUP_ID antismash > /dev/null
-adduser --home /output --uid $USER_ID --gid $GROUP_ID --gecos 'temporary antismash user' --disabled-login antismash > /dev/null
-
-sudo -u antismash /usr/local/bin/run_antismash.py $@ /input/${INFILE}
+/usr/local/bin/run_antismash.py $@ /input/${INFILE}
