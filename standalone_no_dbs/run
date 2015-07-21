@@ -1,0 +1,8 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+readonly INFILE=$1
+shift
+
+/usr/local/bin/run_antismash.py $@ /input/${INFILE}

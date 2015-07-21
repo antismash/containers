@@ -12,3 +12,9 @@ This is a standalone antiSMASH build that contains the CLI application, and all
 the required dependencies. As this container also ships the ClusterBlast and
 PFAM database, it is rather large, but you don't need to worry about needing to
 download anything but this container.
+
+Standalone no dbs
+-----------------
+
+Similar to the standalone container, but requires the ClusterBlast and PFAM
+databases to be provided as a volume.
