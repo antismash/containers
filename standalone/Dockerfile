@@ -1,10 +1,10 @@
 # Standalone antiSMASH build
-# VERSION 0.0.2
+# VERSION 0.0.3
 FROM debian:jessie
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
 ENV ANTISMASH_URL="https://bitbucket.org/antismash/antismash/downloads"
-ENV ANTISMASH_VERSION="3.0.3"
+ENV ANTISMASH_VERSION="3.0.4"
 
 # set up antiSMASH deb repo
 ADD http://dl.secondarymetabolites.org/antismash.list /etc/apt/sources.list.d/antismash.list
