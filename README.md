@@ -18,3 +18,9 @@ Standalone lite
 
 Similar to the standalone container, but requires the ClusterBlast and PFAM
 databases to be provided as a volume as a trade-off for a smaller image size.
+
+
+Debian FPM
+----------
+
+Small image to build .deb files for the other images using [FPM](https://github.com/jordansissel/fpm).

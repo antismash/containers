@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <buildcmdfile> <depfile>"
+    exit 2
+fi
+
+readonly BUILDCMDFILE=$1
+readonly DEPFILE=$2
+
+# get a temporary directory
+TMPDIR=$(mktemp -d)
+
+function cleanup {
+    rm -rf "$TMPDIR"
+}
+trap cleanup EXIT
+
+cp "$BUILDCMDFILE" "$TMPDIR/buildcmd.sh"
+cp "$DEPFILE" "$TMPDIR/depfile"
+
+cat <<EOF >"$TMPDIR/run"
+#!/bin/bash
+
+cat /build/depfile | xargs apt-get install -y
+bash /build/buildcmd.sh
+EOF
+
+chmod a+x "$TMPDIR/run"
+
+docker run -it --rm -v "$(pwd)":/outside -v "$TMPDIR":/build kblin/debian-fpm /build/run
