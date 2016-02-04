@@ -29,6 +29,13 @@ that like the standalone-lite image, the ClusterBlast and PFAM databases are
 not included. Like for the standalone images, no EC predictor is included either.
 
 
+Websmash
+--------
+
+The web UI componnent of the [official antiSMASH website](http://antismash.secondarymetabolites.org).
+Configuration defaults can be easily changed using an external settings file.
+
+
 Debian FPM
 ----------
 
