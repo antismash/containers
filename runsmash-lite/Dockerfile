@@ -11,12 +11,52 @@ ADD http://dl.secondarymetabolites.org/antismash.list /etc/apt/sources.list.d/an
 ADD http://dl.secondarymetabolites.org/antismash.asc /tmp/
 RUN apt-key add /tmp/antismash.asc
 
-# grab all the dependencies
-RUN apt-get update && apt-get install -y ncbi-blast+ glimmerhmm tigr-glimmer diamond hmmer2 hmmer hmmer2-compat muscle prodigal fasttree default-jre-headless python-straight.plugin python-pysvg python-helperlibs python-biopython python-pyquery python-backports.lzma python-glpk python-cobra python-pyinotify python-redis python-hiredis python-requests python-subprocess32 python-statsd git libc6-i386 python-libsbml
 
-# grab antiSMASH
-ADD ${ANTISMASH_URL}/antismash-${ANTISMASH_VERSION}.tar.gz /tmp/
-RUN tar xf /tmp/antismash-${ANTISMASH_VERSION}.tar.gz
+# grab all the dependencies
+RUN apt-get update && \
+    apt-get install -y \
+        curl \
+        default-jre-headless \
+        diamond \
+        fasttree \
+        git \
+        glimmerhmm \
+        hmmer \
+        hmmer2 \
+        hmmer2-compat \
+        libc6-i386 \
+        muscle \
+        ncbi-blast+ \
+        prodigal \
+        python-backports.lzma \
+        python-biopython \
+        python-cobra \
+        python-excelerator \
+        python-glpk \
+        python-helperlibs \
+        python-hiredis \
+        python-libsbml \
+        python-pyinotify \
+        python-pyquery \
+        python-pysvg \
+        python-redis \
+        python-requests \
+        python-statsd \
+        python-straight.plugin \
+        python-subprocess32 \
+        tigr-glimmer \
+    && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# Grab antiSMASH
+RUN curl -L ${ANTISMASH_URL}/antismash-${ANTISMASH_VERSION}.tar.gz > /tmp/antismash-${ANTISMASH_VERSION}.tar.gz && \
+    tar xf /tmp/antismash-${ANTISMASH_VERSION}.tar.gz && \
+    rm /tmp/antismash-${ANTISMASH_VERSION}.tar.gz
+
+
 ADD instance.cfg /antismash-${ANTISMASH_VERSION}/antismash/config/instance.cfg
 
 # grab runSMASH
@@ -31,6 +71,7 @@ RUN hmmpress smcogs.hmm
 WORKDIR /usr/local/bin
 RUN ln -s /antismash-${ANTISMASH_VERSION}/run_antismash.py
 RUN ln -s /eficaz/bin/eficaz2.5
+ADD entrypoint.sh /entrypoint.sh
 
 VOLUME ["/upload", "/databases", "/eficaz"]
 WORKDIR /runsmash
