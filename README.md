@@ -35,6 +35,12 @@ Websmash
 The web UI componnent of the [official antiSMASH website](http://antismash.secondarymetabolites.org).
 Configuration defaults can be easily changed using an external settings file.
 
+antismash
+---------
+
+A version of the standalone antiSMASH build without the wrapper magic. Use this
+to run from workflow management tools like [Common Workflow Language (CWL)](http://www.commonwl.org/).
+
 
 Debian FPM
 ----------
