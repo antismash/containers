@@ -3,13 +3,17 @@
 set -o errexit
 set -o nounset
 
+function realpath() {
+    echo $(readlink -f $1 || python -c "import sys; import os; os.path.realpath(os.path.expanduser(sys.argv[1])))" $1)
+}
+
 # handle input file
 readonly INPUT_FILE=$(basename $1)
-readonly INPUT_DIR=$(dirname $(readlink -f $1))
+readonly INPUT_DIR=$(dirname $(realpath $1))
 shift
 
 # handle output file
-readonly OUTPUT_DIR=$(readlink -f $1)
+readonly OUTPUT_DIR=$(realpath $1)
 shift
 
 # Links within the container
