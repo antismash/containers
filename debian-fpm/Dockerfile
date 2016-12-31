@@ -3,13 +3,27 @@
 FROM debian:jessie
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
+# set up apt-via-https
+RUN apt-get update && apt-get install -y apt-transport-https && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# Update packages
+RUN apt-get update && apt-get upgrade -y  && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
 # set up antiSMASH deb repo
-ADD http://dl.secondarymetabolites.org/antismash.list /etc/apt/sources.list.d/antismash.list
-ADD http://dl.secondarymetabolites.org/antismash.asc /tmp/
+ADD https://dl.secondarymetabolites.org/antismash.list /etc/apt/sources.list.d/antismash.list
+ADD https://dl.secondarymetabolites.org/antismash.asc /tmp/
 RUN apt-key add /tmp/antismash.asc
 
 
-RUN apt-get update && apt-get install -y ruby ruby-dev gcc make python-dev python-setuptools
+RUN apt-get update && apt-get install -y ruby ruby-dev gcc make python-dev python-setuptools python-pip
 RUN gem install fpm
 
 VOLUME ['/outside']
