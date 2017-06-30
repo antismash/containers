@@ -5,6 +5,11 @@ This repository contains a number of Dockerfiles to build different antiSMASH
 containers. Missing from all these containers is the EC prediction code, because
 there currently is no EC predictor that I can ship freely.
 
+Base
+----
+
+Base image with all the antiSMASH dependencies installed
+
 Standalone
 ----------
 
