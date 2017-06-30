@@ -1,31 +1,30 @@
 # Standalone antiSMASH build without databases
-# VERSION 0.0.3
-FROM debian:jessie
+# VERSION 0.0.4
+FROM antismash/base:4.0.0
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
-ENV ANTISMASH_URL="https://bitbucket.org/antismash/antismash/downloads"
-ENV ANTISMASH_VERSION="3.0.5"
-
-# set up antiSMASH deb repo
-ADD http://dl.secondarymetabolites.org/antismash.list /etc/apt/sources.list.d/antismash.list
-ADD http://dl.secondarymetabolites.org/antismash.asc /tmp/
-RUN apt-key add /tmp/antismash.asc
-
-# grab all the dependencies
-RUN apt-get update && apt-get install -y ncbi-blast+ glimmerhmm tigr-glimmer diamond hmmer2 hmmer hmmer2-compat muscle prodigal fasttree default-jre-headless python-straight.plugin python-pysvg python-helperlibs python-biopython python-pyquery python-backports.lzma
+ENV ANTISMASH_URL="https://dl.secondarymetabolites.org/releases/"
+ENV ANTISMASH_VERSION="4.0.0"
 
 # Grab antiSMASH
-ADD ${ANTISMASH_URL}/antismash-${ANTISMASH_VERSION}.tar.gz /tmp/
-RUN tar xf /tmp/antismash-${ANTISMASH_VERSION}.tar.gz
+RUN curl -L ${ANTISMASH_URL}/${ANTISMASH_VERSION}/antismash-${ANTISMASH_VERSION}.tar.gz > /tmp/antismash-${ANTISMASH_VERSION}.tar.gz && \
+    tar xf /tmp/antismash-${ANTISMASH_VERSION}.tar.gz && \
+    rm /tmp/antismash-${ANTISMASH_VERSION}.tar.gz
 
 ADD instance.cfg /antismash-${ANTISMASH_VERSION}/antismash/config/instance.cfg
 
-# compress the shipped profiles
-WORKDIR /antismash-${ANTISMASH_VERSION}/antismash/specific_modules/nrpspks
-RUN hmmpress abmotifs.hmm && hmmpress dockingdomains.hmm && hmmpress ksdomains.hmm && hmmpress nrpspksdomains.hmm
-WORKDIR /antismash-${ANTISMASH_VERSION}/antismash/generic_modules/smcogs/
-RUN hmmpress smcogs.hmm
+# Create the shared bgc_seeds.hmm file
+RUN /antismash-${ANTISMASH_VERSION}/scripts/create_bgc_seeds.sh /antismash-${ANTISMASH_VERSION}
 
+# compress the shipped profiles
+RUN hmmpress /antismash-${ANTISMASH_VERSION}/antismash/specific_modules/nrpspks/abmotifs.hmm && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/specific_modules/nrpspks/dockingdomains.hmm && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/specific_modules/nrpspks/ksdomains.hmm && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/specific_modules/nrpspks/nrpspksdomains.hmm && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/specific_modules/nrpspks/sandpuma/flat/fullset0_smiles/fullset0_smiles_nrpsA.hmmdb && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/generic_modules/smcogs/smcogs.hmm && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/generic_modules/active_site_finder/hmm/p450.hmm3 && \
+    hmmpress /antismash-${ANTISMASH_VERSION}/antismash/generic_modules/hmm_detection/bgc_seeds.hmm
 ADD run /usr/local/bin/run
 
 WORKDIR /usr/local/bin
