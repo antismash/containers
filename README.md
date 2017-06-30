@@ -10,6 +10,11 @@ Base
 
 Base image with all the antiSMASH dependencies installed
 
+Testenv
+-------
+
+Base image plus development dependencies to run the continuous integration tests.
+
 Standalone
 ----------
 
