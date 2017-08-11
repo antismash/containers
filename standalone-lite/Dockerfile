@@ -4,7 +4,7 @@ FROM antismash/base:4.0.0
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
 ENV ANTISMASH_URL="https://dl.secondarymetabolites.org/releases/"
-ENV ANTISMASH_VERSION="4.0.0"
+ENV ANTISMASH_VERSION="4.0.1"
 
 # Grab antiSMASH
 RUN curl -L ${ANTISMASH_URL}/${ANTISMASH_VERSION}/antismash-${ANTISMASH_VERSION}.tar.gz > /tmp/antismash-${ANTISMASH_VERSION}.tar.gz && \
