@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     git \
     python-pip
 
-RUN git clone https://bitbucket.org/antismash/websmash.git
+RUN git clone https://github.com/antismash/websmash.git
 
 WORKDIR /websmash
 
