@@ -4,7 +4,7 @@ FROM antismash/base:4.0.0
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
 ENV ANTISMASH_URL="https://dl.secondarymetabolites.org/releases/"
-ENV ANTISMASH_VERSION="4.0.1"
+ENV ANTISMASH_VERSION="4.0.2"
 
 # Grab antiSMASH
 RUN curl -L ${ANTISMASH_URL}/${ANTISMASH_VERSION}/antismash-${ANTISMASH_VERSION}.tar.gz > /tmp/antismash-${ANTISMASH_VERSION}.tar.gz && \
@@ -29,6 +29,8 @@ ADD run /usr/local/bin/run
 
 WORKDIR /usr/local/bin
 RUN ln -s /antismash-${ANTISMASH_VERSION}/run_antismash.py
+
+RUN mkdir /matplotlib && MPLCONFIGDIR=/matplotlib python -c "import matplotlib.pyplot as plt" && chmod -R a+rw /matplotlib
 
 VOLUME ["/input", "/output", "/databases"]
 WORKDIR /output
