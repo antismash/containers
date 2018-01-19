@@ -1,17 +1,17 @@
-# Base image with all dependencies for antiSMASH installed
-# VERSION 0.1.0
-FROM debian:jessie
+# Base image with all OSS dependencies for antiSMASH installed
+# VERSION 0.2.0
+FROM debian:stretch
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
 # set up apt-via-https
-RUN apt-get update && apt-get install -y apt-transport-https && \
+RUN apt-get update && apt-get install -y apt-transport-https gnupg && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # set up antiSMASH deb repo
-ADD https://dl.secondarymetabolites.org/antismash.list /etc/apt/sources.list.d/antismash.list
+ADD https://dl.secondarymetabolites.org/antismash-stretch.list /etc/apt/sources.list.d/antismash.list
 ADD https://dl.secondarymetabolites.org/antismash.asc /tmp/
 RUN apt-key add /tmp/antismash.asc
 
@@ -21,14 +21,13 @@ RUN apt-get update && \
         clustalw \
         curl \
         default-jre-headless \
-        diamond \
+        diamond-aligner \
         fasttree \
         glimmerhmm \
         hmmer \
         hmmer2 \
         hmmer2-compat \
         mafft \
-        meme-suite \
         muscle \
         ncbi-blast+ \
         prodigal \
@@ -37,6 +36,7 @@ RUN apt-get update && \
         python-ete2 \
         python-excelerator \
         python-biopython \
+        python-biopython-sql \
         python-helperlibs \
         python-matplotlib \
         python-networkx \
