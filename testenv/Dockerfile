@@ -1,7 +1,7 @@
 # Container with the test environment for antiSMASH
 # VERSION 0.0.3
-FROM antismash/base:4.0.0
-MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
+FROM antismash/base-nonfree:4.1.0
+LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 ENV ANTISMASH_VERSION="test"
 
