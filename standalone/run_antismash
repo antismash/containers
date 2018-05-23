@@ -30,6 +30,6 @@ docker run \
     --detach=false \
     --rm \
     --user=$(id -u):$(id -g) \
-    antismash/standalone:4.0.1 \
+    antismash/standalone:4.1.0 \
     ${INPUT_FILE} \
     $@
