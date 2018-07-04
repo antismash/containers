@@ -1,7 +1,7 @@
 # Base image with all OSS dependencies for antiSMASH installed
 # VERSION 0.2.0
 FROM debian:stretch
-MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
+LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # set up apt-via-https
 RUN apt-get update && apt-get install -y apt-transport-https gnupg && \
@@ -33,10 +33,9 @@ RUN apt-get update && \
         prodigal \
         python-backports.lzma \
         python-bcbio-gff \
+        python-dev \
         python-ete2 \
         python-excelerator \
-        python-biopython \
-        python-biopython-sql \
         python-helperlibs \
         python-matplotlib \
         python-networkx \
@@ -51,4 +50,5 @@ RUN apt-get update && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    pip install biopython==1.72
