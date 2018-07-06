@@ -3,13 +3,14 @@
 set -o errexit
 set -o nounset
 
-if [ $# -lt 2 ]; then
-    echo "Usage: $0 <buildcmdfile> <depfile>"
+if [ $# -lt 3 ]; then
+    echo "Usage: $0 <distro> <buildcmdfile> <depfile>"
     exit 2
 fi
 
-readonly BUILDCMDFILE=$1
-readonly DEPFILE=$2
+readonly DISTRO=$1
+readonly BUILDCMDFILE=$2
+readonly DEPFILE=$3
 
 # get a temporary directory
 TMPDIR=$(mktemp -d)
@@ -26,9 +27,9 @@ cat <<EOF >"$TMPDIR/run"
 #!/bin/bash
 
 cat /build/depfile | xargs apt-get install -y
-bash /build/buildcmd.sh
+bash /build/buildcmd.sh $DISTRO
 EOF
 
 chmod a+x "$TMPDIR/run"
 
-docker run -it --rm -v "$(pwd)":/outside -v "$TMPDIR":/build kblin/debian-fpm /build/run
+docker run -it --rm -v "$(pwd)":/outside -v "$TMPDIR":/build kblin/${DISTRO}-fpm /build/run
