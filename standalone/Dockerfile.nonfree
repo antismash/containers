@@ -1,9 +1,9 @@
 # Standalone antiSMASH build
-# VERSION 0.0.6
-FROM antismash/standalone-lite-nonfree:4.1.0
+# VERSION 2018070601
+FROM antismash/standalone-lite-nonfree:4.2.0
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
-ENV ANTISMASH_VERSION="4.1.0"
+ENV ANTISMASH_VERSION="4.2.0"
 
 # Grab the databases
 WORKDIR /antismash-${ANTISMASH_VERSION}
