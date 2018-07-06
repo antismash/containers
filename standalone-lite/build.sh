@@ -1,7 +1,7 @@
 #!/bin/bash
 set -o errexit
 
-VERSION="4.1.0"
+VERSION="4.2.0"
 
 docker build -t antismash/standalone-lite .
 docker build -t antismash/standalone-lite-nonfree -f Dockerfile.nonfree .
