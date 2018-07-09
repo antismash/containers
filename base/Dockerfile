@@ -36,7 +36,6 @@ RUN apt-get update && \
         python-dev \
         python-ete2 \
         python-excelerator \
-        python-helperlibs \
         python-matplotlib \
         python-networkx \
         python-pandas \
@@ -51,4 +50,5 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
-    pip install biopython==1.72
+    pip install biopython==1.72 && \
+    pip install helperlibs
