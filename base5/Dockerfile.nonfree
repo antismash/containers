@@ -1,0 +1,14 @@
+# Base image with all non-python dependencies for antiSMASH 5, even the non-OSS ones
+# VERSION 0.1.0
+FROM antismash/base5:latest
+LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
+
+# grab all the non-free dependencies
+RUN apt-get update && \
+    apt-get install -y \
+        meme-suite \
+    && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
