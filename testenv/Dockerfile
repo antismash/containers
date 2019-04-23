@@ -1,6 +1,6 @@
 # Container with the test environment for antiSMASH
 # VERSION 0.0.3
-FROM antismash/base-nonfree:4.1.0
+FROM antismash/base5-nonfree:5.0.0rc1
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 ENV ANTISMASH_VERSION="test"
@@ -15,4 +15,4 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install nose minimock
+RUN pip3 install nose minimock
