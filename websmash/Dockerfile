@@ -1,6 +1,6 @@
 # antiSMASH web server component
 # VERSION 0.2.0
-FROM alpine:3.6
+FROM alpine:latest
 MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
 
 RUN apk --no-cache add python3 ca-certificates git gcc musl-dev python3-dev
