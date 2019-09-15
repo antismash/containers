@@ -4,7 +4,7 @@ FROM antismash/base5:5.0.0rc1
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 ENV ANTISMASH_URL="https://dl.secondarymetabolites.org/releases/"
-ENV ANTISMASH_VERSION="5.0.0rc1"
+ENV ANTISMASH_VERSION="5.0.0"
 
 ENV LANG C.UTF-8
 
