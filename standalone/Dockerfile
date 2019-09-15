@@ -1,6 +1,6 @@
 # Standalone antiSMASH build
 # VERSION 2019042101
-FROM antismash/standalone-lite:5.0.0rc1
+FROM antismash/standalone-lite:5.0.0
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # Grab the databases
