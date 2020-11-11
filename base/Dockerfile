@@ -1,24 +1,23 @@
-# Base image with all OSS dependencies for antiSMASH installed
-# VERSION 0.2.0
-FROM debian:stretch
+# Base image with all non-python OSS dependencies for antiSMASH 6
+# VERSION 0.1.0
+FROM debian:buster
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # set up apt-via-https
-RUN apt-get update && apt-get install -y apt-transport-https gnupg && \
+RUN apt-get update && apt-get install -y apt-transport-https gnupg ca-certificates && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # set up antiSMASH deb repo
-ADD https://dl.secondarymetabolites.org/antismash-stretch.list /etc/apt/sources.list.d/antismash.list
+ADD https://dl.secondarymetabolites.org/antismash-buster.list /etc/apt/sources.list.d/antismash.list
 ADD https://dl.secondarymetabolites.org/antismash.asc /tmp/
 RUN apt-key add /tmp/antismash.asc
 
 # grab all the dependencies
 RUN apt-get update && \
     apt-get install -y \
-        clustalw \
         curl \
         default-jre-headless \
         diamond-aligner \
@@ -26,29 +25,13 @@ RUN apt-get update && \
         glimmerhmm \
         hmmer \
         hmmer2 \
-        hmmer2-compat \
-        mafft \
         muscle \
         ncbi-blast+ \
         prodigal \
-        python-backports.lzma \
-        python-bcbio-gff \
-        python-dev \
-        python-ete2 \
-        python-excelerator \
-        python-matplotlib \
-        python-networkx \
-        python-pandas \
-        python-pip \
-        python-pyquery \
-        python-pysvg \
-        python-scipy \
-        python-sklearn \
-        tigr-glimmer \
+        python3-dev \
+        python3-pip \
     && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip install biopython==1.72 && \
-    pip install helperlibs
+    rm -rf /var/lib/apt/lists/*
