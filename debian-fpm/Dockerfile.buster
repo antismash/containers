@@ -1,0 +1,30 @@
+# Debian package builder with FPM
+# VERSION 0.1.0
+FROM debian:buster
+MAINTAINER Kai Blin <kblin@biosustain.dtu.dk>
+
+# set up apt-via-https
+RUN apt-get update && apt-get install -y apt-transport-https gnupg && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# Update packages
+RUN apt-get update && apt-get upgrade -y  && \
+    apt-get clean -y && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# set up antiSMASH deb repo
+#ADD https://dl.secondarymetabolites.org/antismash-buster.list /etc/apt/sources.list.d/antismash.list
+ADD https://dl.secondarymetabolites.org/antismash.asc /tmp/
+RUN apt-key add /tmp/antismash.asc
+
+
+RUN apt-get update && apt-get install -y ruby ruby-dev gcc make python3-dev python3-setuptools python3-pip
+RUN gem install fpm
+
+VOLUME ['/outside']
+WORKDIR /outside

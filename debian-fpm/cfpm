@@ -26,6 +26,7 @@ cp "$DEPFILE" "$TMPDIR/depfile"
 cat <<EOF >"$TMPDIR/run"
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
 cat /build/depfile | xargs apt-get install -y
 bash /build/buildcmd.sh $DISTRO
 EOF
