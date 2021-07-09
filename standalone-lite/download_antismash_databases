@@ -19,5 +19,5 @@ docker run \
     --rm \
     --user=$(id -u):$(id -g) \
     --entrypoint /usr/local/bin/download-antismash-databases \
-    antismash/standalone-lite:5.0.0 \
+    antismash/standalone-lite:6.0.0 \
         --data ${CONTAINER_DB_DIR}
