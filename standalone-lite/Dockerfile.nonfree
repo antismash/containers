@@ -1,10 +1,10 @@
 # Standalone antiSMASH build without databases
-# VERSION 2021060301
+# VERSION 2021070901
 FROM antismash/base-nonfree:6.0.0
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 ENV ANTISMASH_URL="https://dl.secondarymetabolites.org/releases/"
-ENV ANTISMASH_VERSION="6.0.0"
+ENV ANTISMASH_VERSION="6.0.1"
 
 ENV LANG C.UTF-8
 
