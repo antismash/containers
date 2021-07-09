@@ -1,10 +1,10 @@
 # Standalone antiSMASH build
-# VERSION 2019042101
-FROM antismash/standalone-lite:5.1.0
+# VERSION 2021060301
+FROM antismash/standalone-lite:6.0.0
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # Grab the databases
-ADD instance.cfg /usr/local/lib/python3.5/dist-packages/antismash/config/instance.cfg
+ADD instance.cfg /usr/local/lib/python3.7/dist-packages/antismash/config/instance.cfg
 RUN mkdir -p /local/databases && download-antismash-databases --data /local/databases
 
 VOLUME ["/input", "/output"]
