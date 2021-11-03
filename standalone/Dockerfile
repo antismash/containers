@@ -1,6 +1,6 @@
 # Standalone antiSMASH build
-# VERSION 2021060301
-FROM antismash/standalone-lite:6.0.0
+# VERSION 2021070901
+FROM antismash/standalone-lite:6.0.1
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # Grab the databases
