@@ -1,5 +1,5 @@
-# Base image with all non-python dependencies for antiSMASH 5, even the non-OSS ones
-# VERSION 0.1.0
+# Base image with all non-python dependencies for antiSMASH, even the non-OSS ones
+# VERSION 6.1.0
 FROM antismash/base:latest
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 

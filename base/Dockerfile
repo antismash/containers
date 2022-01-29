@@ -1,6 +1,6 @@
 # Base image with all non-python OSS dependencies for antiSMASH 6
-# VERSION 0.1.0
-FROM debian:buster
+# VERSION 6.1.0
+FROM debian:bullseye
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # set up apt-via-https
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y apt-transport-https gnupg ca-certificat
     rm -rf /var/lib/apt/lists/*
 
 # set up antiSMASH deb repo
-ADD https://dl.secondarymetabolites.org/antismash-buster.list /etc/apt/sources.list.d/antismash.list
+ADD https://dl.secondarymetabolites.org/antismash-bullseye.list /etc/apt/sources.list.d/antismash.list
 ADD https://dl.secondarymetabolites.org/antismash.asc /tmp/
 RUN apt-key add /tmp/antismash.asc
 
@@ -34,4 +34,5 @@ RUN apt-get update && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    pip3 install -U pip
