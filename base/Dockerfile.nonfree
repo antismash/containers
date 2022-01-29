@@ -7,6 +7,7 @@ LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 RUN apt-get update && \
     apt-get install -y \
         meme-suite \
+        openmpi-bin \
     && \
     apt-get clean -y && \
     apt-get autoclean -y && \
