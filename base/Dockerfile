@@ -1,5 +1,5 @@
 # Base image with all non-python OSS dependencies for antiSMASH 6
-# VERSION 6.1.0
+# VERSION 7.0.0
 FROM debian:bullseye
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
@@ -19,13 +19,11 @@ RUN apt-key add /tmp/antismash.asc
 RUN apt-get update && \
     apt-get install -y \
         curl \
-        default-jre-headless \
         diamond-aligner \
         fasttree \
         glimmerhmm \
         hmmer \
         hmmer2 \
-        muscle \
         ncbi-blast+ \
         prodigal \
         python3-dev \
