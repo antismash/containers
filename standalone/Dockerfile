@@ -1,6 +1,7 @@
 # Standalone antiSMASH build
-# VERSION 2022042701
-FROM antismash/standalone-lite:6.1.1
+# VERSION 2023080701
+ARG ANTISMASH_VERSION
+FROM docker.io/antismash/standalone-lite:${ANTISMASH_VERSION}
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 # Grab the databases

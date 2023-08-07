@@ -3,8 +3,8 @@ set -o errexit
 
 VERSION=$(cat VERSION)
 
-docker build -t antismash/standalone .
-docker build -t antismash/standalone-nonfree -f Dockerfile.nonfree .
+buildah build --build-arg "ANTISMASH_VERSION=${VERSION}" -t docker.io/antismash/standalone .
+buildah build --build-arg "ANTISMASH_VERSION=${VERSION}" -t docker.io/antismash/standalone-nonfree -f Dockerfile.nonfree .
 
-docker tag antismash/standalone:latest antismash/standalone:${VERSION}
-docker tag antismash/standalone-nonfree:latest antismash/standalone-nonfree:${VERSION}
+buildah tag docker.io/antismash/standalone:latest docker.io/antismash/standalone:${VERSION}
+buildah tag docker.io/antismash/standalone-nonfree:latest docker.io/antismash/standalone-nonfree:${VERSION}
