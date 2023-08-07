@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# ADJUST THIS FOR YOUR SYSTEM
+readonly DATABASE_DIR=${1:-/data/databases}
+
+readonly CONTAINER_DB_DIR=/databases
+
+if [ ! -d ${DATABASE_DIR} ]; then
+    echo "Please create the database directory ${DATABASE_DIR} first."
+    exit 2
+fi
+
+docker run \
+    --volume ${DATABASE_DIR}:${CONTAINER_DB_DIR}:rw \
+    --detach=false \
+    --rm \
+    --user=$(id -u):$(id -g) \
+    --entrypoint /usr/local/bin/download-antismash-databases \
+    antismash/standalone-lite:7.0.1 \
+        --data ${CONTAINER_DB_DIR}

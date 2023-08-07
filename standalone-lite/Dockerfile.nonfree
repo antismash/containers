@@ -1,10 +1,11 @@
 # Standalone antiSMASH build without databases
-# VERSION 2022042701
-FROM antismash/base-nonfree:6.1.0
+# VERSION 2023042701
+ARG ANTISMASH_BASE_VERSION=latest
+FROM docker.io/antismash/base-nonfree:${ANTISMASH_BASE_VERSION}
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
 
 ENV ANTISMASH_URL="https://dl.secondarymetabolites.org/releases/"
-ENV ANTISMASH_VERSION="6.1.1"
+ARG ANTISMASH_VERSION
 
 ENV LANG C.UTF-8
 

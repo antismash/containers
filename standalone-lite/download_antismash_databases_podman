@@ -13,11 +13,11 @@ if [ ! -d ${DATABASE_DIR} ]; then
     exit 2
 fi
 
-docker run \
+podman run \
     --volume ${DATABASE_DIR}:${CONTAINER_DB_DIR}:rw \
     --detach=false \
     --rm \
     --user=$(id -u):$(id -g) \
     --entrypoint /usr/local/bin/download-antismash-databases \
-    antismash/standalone-lite:6.1.0 \
+    docker.io/antismash/standalone-lite:7.0.1 \
         --data ${CONTAINER_DB_DIR}
