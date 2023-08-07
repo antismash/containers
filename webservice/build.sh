@@ -3,6 +3,5 @@ set -o errexit
 
 VERSION=$(cat VERSION)
 
-docker build -t antismash/webservice .
-
-docker tag antismash/webservice:latest antismash/webservice:${VERSION}
+buildah build --build-arg "ANTISMASH_VERSION=${VERSION}" -t docker.io/antismash/webservice .
+buildah tag docker.io/antismash/webservice:latest docker.io/antismash/webservice:${VERSION}
