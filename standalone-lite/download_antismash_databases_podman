@@ -17,7 +17,6 @@ podman run \
     --volume ${DATABASE_DIR}:${CONTAINER_DB_DIR}:rw \
     --detach=false \
     --rm \
-    --user=$(id -u):$(id -g) \
     --entrypoint /usr/local/bin/download-antismash-databases \
-    docker.io/antismash/standalone-lite:7.0.1 \
+    docker.io/antismash/standalone-lite:7.1.0 \
         --data ${CONTAINER_DB_DIR}

@@ -30,7 +30,6 @@ podman run \
     --volume ${DATABASE_DIR}:${CONTAINER_DB_DIR}:ro \
     --detach=false \
     --rm \
-    --user=$(id -u):$(id -g) \
-    antismash/standalone-lite:7.0.1 \
+    antismash/standalone-lite:7.1.0 \
     ${INPUT_FILE} \
     $@

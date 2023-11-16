@@ -1,5 +1,5 @@
 # Standalone antiSMASH build without databases
-# VERSION 2023072701
+# VERSION 2023111501
 ARG ANTISMASH_BASE_VERSION=latest
 FROM docker.io/antismash/base:${ANTISMASH_BASE_VERSION}
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
