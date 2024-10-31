@@ -3,6 +3,5 @@ set -o errexit
 
 VERSION=$(cat VERSION)
 
-for img in antismash/base:latest antismash/base:${VERSION} antismash/base-nonfree:latest antismash/base-nonfree:${VERSION}; do
-    docker push $img
-done
+buildah push docker.io/antismash/base:latest
+buildah push docker.io/antismash/base:${VERSION}

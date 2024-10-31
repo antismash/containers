@@ -1,19 +1,7 @@
-# Base image with all non-python OSS dependencies for antiSMASH 6
-# VERSION 7.0.0
-FROM debian:bullseye
+# Base image with all non-python OSS dependencies for antiSMASH 8
+# VERSION 8.0.0
+FROM debian:bookworm
 LABEL maintainer="Kai Blin <kblin@biosustain.dtu.dk>"
-
-# set up apt-via-https
-RUN apt-get update && apt-get install -y apt-transport-https gnupg ca-certificates && \
-    apt-get clean -y && \
-    apt-get autoclean -y && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
-
-# set up antiSMASH deb repo
-ADD https://dl.secondarymetabolites.org/antismash-bullseye.list /etc/apt/sources.list.d/antismash.list
-ADD https://dl.secondarymetabolites.org/antismash.asc /tmp/
-RUN apt-key add /tmp/antismash.asc
 
 # grab all the dependencies
 RUN apt-get update && \
@@ -21,7 +9,6 @@ RUN apt-get update && \
         curl \
         diamond-aligner \
         fasttree \
-        glimmerhmm \
         hmmer \
         hmmer2 \
         ncbi-blast+ \
@@ -32,5 +19,4 @@ RUN apt-get update && \
     apt-get clean -y && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip3 install -U pip
+    rm -rf /var/lib/apt/lists/*
