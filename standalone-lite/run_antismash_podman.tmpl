@@ -4,7 +4,8 @@ set -o errexit
 set -o nounset
 
 # ADJUST THIS FOR YOUR SYSTEM
-readonly DATABASE_DIR="/data/databases"
+readonly DATABASE_DIR=${ANTISMASH_DATABASE_DIR:-/data/databases}
+readonly VERSION="@@VERSION@@"
 
 # handle input file
 readonly INPUT_FILE=$(basename $1)
@@ -30,6 +31,6 @@ podman run \
     --volume ${DATABASE_DIR}:${CONTAINER_DB_DIR}:ro \
     --detach=false \
     --rm \
-    antismash/standalone-lite:7.1.0 \
+    docker.io/antismash/standalone-lite:${VERSION} \
     ${INPUT_FILE} \
     $@

@@ -5,6 +5,7 @@ set -o nounset
 
 # ADJUST THIS FOR YOUR SYSTEM
 readonly DATABASE_DIR=${1:-/data/databases}
+readonly VERSION="@@VERSION@@"
 
 readonly CONTAINER_DB_DIR=/databases
 
@@ -18,5 +19,5 @@ podman run \
     --detach=false \
     --rm \
     --entrypoint /usr/local/bin/download-antismash-databases \
-    docker.io/antismash/standalone-lite:7.1.0 \
+    docker.io/antismash/standalone-lite:${VERSION} \
         --data ${CONTAINER_DB_DIR}

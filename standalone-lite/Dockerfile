@@ -17,7 +17,7 @@ RUN curl -L ${ANTISMASH_URL}/${ANTISMASH_VERSION}/antismash-${ANTISMASH_VERSION}
 ADD instance.cfg /antismash-${ANTISMASH_VERSION}/antismash/config/instance.cfg
 
 
-RUN pip3 install /antismash-${ANTISMASH_VERSION} && python3 -c "import antismash; antismash.config.build_config(['--databases', 'mounted_at_runtime'], modules=antismash.get_all_modules()); antismash.main.prepare_module_data()"
+RUN pip3 install /antismash-${ANTISMASH_VERSION} --break-system-packages && python3 -c "import antismash; antismash.config.build_config(['--databases', 'mounted_at_runtime'], modules=antismash.get_all_modules()); antismash.main.prepare_module_data()"
 
 WORKDIR /usr/local/bin
 RUN ln -s /antismash-${ANTISMASH_VERSION}/docker/run
