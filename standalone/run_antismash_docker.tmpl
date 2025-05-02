@@ -7,6 +7,8 @@ function realpath() {
     echo $(readlink -f $1 2>/dev/null || python -c "import sys; import os; print(os.path.realpath(os.path.expanduser(sys.argv[1])))" $1)
 }
 
+readonly VERSION="@@VERSION@@"
+
 # handle input file
 readonly INPUT_FILE=$(basename $1)
 readonly INPUT_DIR=$(dirname $(realpath $1))
@@ -24,11 +26,12 @@ if [ ! -d ${OUTPUT_DIR} ]; then
     mkdir ${OUTPUT_DIR}
 fi
 
-podman run \
+docker run \
     --volume ${INPUT_DIR}:${CONTAINER_SRC_DIR}:ro \
     --volume ${OUTPUT_DIR}:${CONTAINER_DST_DIR}:rw \
     --detach=false \
     --rm \
-    docker.io/antismash/standalone:7.1.0 \
+    --user=$(id -u):$(id -g) \
+    docker.io/antismash/standalone:${VERSION} \
     ${INPUT_FILE} \
     $@
