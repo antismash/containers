@@ -4,5 +4,5 @@ standalone-lite/download_*
 standalone-lite/*-run_*
 !standalone-lite/*.tmpl
 standalone/download_*
-standalone/run_*
+standalone/*-run_*
 !standalone/*.tmpl
