@@ -1,7 +1,7 @@
 *.swp
 asdb-jobs/diamond*
 standalone-lite/download_*
-standalone-lite/run_*
+standalone-lite/*-run_*
 !standalone-lite/*.tmpl
 standalone/download_*
 standalone/run_*
